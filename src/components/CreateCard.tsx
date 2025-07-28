@@ -68,9 +68,9 @@ export default function CreateCard() {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-wrapper">
       <Moose text="Create your own flashcard! Add a Finnish word, its translation, and an example sentence." />
-      <div style={{ flex: 1 }}>
+      <div className="form-container">
         <h2 className="form-title">Create a New Flashcard</h2>
         <form className="card-form" onSubmit={handleSubmit}>
           <label className="form-label" htmlFor="finnish">

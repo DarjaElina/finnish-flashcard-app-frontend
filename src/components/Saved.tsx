@@ -6,18 +6,12 @@ export default function Cards() {
   const { words, error } = useWords();
 
   if (error) {
-    return (
-      <div className="cards-container">
-        <Moose text="Oops! Something went wrong! 😢" />
-      </div>
-    );
+    return <Moose text="Oops! Something went wrong! 😢" />;
   }
 
   if (words.length === 0) {
     return (
-      <div className="cards-container">
-        <Moose text="Hmm... no words here just yet! Let’s add some and start your Finnish journey ✨" />
-      </div>
+      <Moose text="Hmm... no words here just yet! Let’s add some and start your Finnish journey ✨" />
     );
   }
 

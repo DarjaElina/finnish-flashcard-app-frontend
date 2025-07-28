@@ -15,8 +15,8 @@ export default function Cards() {
     const getWords = async () => {
       try {
         const { data } = await axios.get(`${BACKEND_URL}/words/external`);
-        setError("some error 🦊")
-        setWords([])
+        setError("some error 🦊");
+        setWords([]);
         console.log(data);
       } catch (e) {
         console.log(e);
@@ -31,26 +31,16 @@ export default function Cards() {
   console.log(words);
 
   if (loading) {
-    return (
-      <div className="cards-container">
-        <Moose text="Loading your words..." />
-      </div>
-    );
+    return <Moose text="Loading your words..." />;
   }
 
   if (error) {
-    return (
-      <div className="cards-container">
-        <Moose text="Oops! Something went wrong! 😢" />
-      </div>
-    );
+    return <Moose text="Oops! Something went wrong! 😢" />;
   }
 
   if (words.length === 0) {
     return (
-      <div className="cards-container">
-        <Moose text="Oops! I tried fetching words from the cloud, but something went wrong. Maybe the internet moose got tangled? 🫎💻" />
-      </div>
+      <Moose text="Oops! I tried fetching words from the cloud, but something went wrong. Maybe the internet moose got tangled? 🫎💻" />
     );
   }
 
