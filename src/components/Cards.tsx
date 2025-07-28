@@ -5,7 +5,7 @@ import Moose from "./Moose";
 import type { Word } from "../types/word.types";
 
 export default function Cards() {
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState<Word[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,6 +15,8 @@ export default function Cards() {
     const getWords = async () => {
       try {
         const { data } = await axios.get(`${BACKEND_URL}/words/external`);
+        setError("some error 🦊")
+        setWords([])
         console.log(data);
       } catch (e) {
         console.log(e);
