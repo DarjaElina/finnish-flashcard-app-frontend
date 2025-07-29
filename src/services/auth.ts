@@ -22,7 +22,7 @@ export const signup = async (
   password: string,
   password_confirmation: string,
 ): Promise<AuthResponse> => {
-  const response = await api.post("/register", {
+  const response = await api.post("/signup", {
     name,
     email,
     password,
