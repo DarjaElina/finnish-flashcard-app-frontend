@@ -1,70 +1,49 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useWords } from "../context/WordContext";
 import { showSuccess, showError } from "../utils";
 import Moose from "./Moose";
 import type { Word } from "../types/word.types";
+import { clearWordErrors, validateWordForm } from "../utils/validation";
+import { useMutation } from "@tanstack/react-query";
+import { useCreateWord } from "../hooks/useWordMutation";
 
 export default function CreateCard() {
-  const [formData, setFormData] = useState<Word>({
+  const [formData, setFormData] = useState<Omit<Word, "id">>({
     finnish: "",
     english: "",
     example: "",
   });
-  const [errors, setErrors] = useState<Word>({
+  const [errors, setErrors] = useState<Omit<Word, "id">>({
     finnish: "",
     english: "",
     example: "",
   });
-  const { addWord } = useWords();
-  const navigate = useNavigate();
 
-  const validate = () => {
-    const newErrors: Word = {
-      finnish: "",
-      english: "",
-      example: "",
-    };
-    if (!formData.finnish.trim())
-      newErrors.finnish = "Finnish word is required.";
-    if (!formData.english.trim())
-      newErrors.english = "Translation is required.";
-    if (!formData.example.trim()) newErrors.example = "Example is required.";
-    return newErrors;
-  };
+  const { mutateAsync: createWord } = useCreateWord();
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const newWordMutation = useMutation({
+    mutationFn: () => createWord(formData),
+    onSuccess: () => {
+      showSuccess("Word created!");
+    },
+    onError: () => {
+      showError("Error saving word");
+    },
+  });
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
+    const validationErrors = validateWordForm(formData);
+    if (Object.values(validationErrors).some((val) => val !== "")) {
       setErrors(validationErrors);
       return;
     }
-    setErrors({
-      finnish: "",
-      english: "",
-      example: "",
-    });
-    try {
-      await addWord(formData);
-      setFormData({
-        finnish: "",
-        english: "",
-        example: "",
-      });
-      showSuccess("Saved!");
-      setTimeout(() => {
-        navigate("/saved");
-      }, 3000);
-    } catch (err) {
-      console.error(err);
-      showError("Error saving word");
-    }
+    setErrors(clearWordErrors());
+    await createWord(formData);
   };
 
   return (
@@ -112,8 +91,12 @@ export default function CreateCard() {
           ></textarea>
           {errors.example && <p className="form-error">{errors.example}</p>}
 
-          <button type="submit" className="form-button">
-            Create Card
+          <button
+            disabled={newWordMutation.isPending}
+            type="submit"
+            className="form-button"
+          >
+            {newWordMutation.isPending ? "Creating..." : "Create"}
           </button>
         </form>
       </div>

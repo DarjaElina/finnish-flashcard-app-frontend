@@ -1,40 +1,24 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import Card from "./Card";
 import Moose from "./Moose";
 import type { Word } from "../types/word.types";
+import { useQuery } from "@tanstack/react-query";
+import { getExternalWords } from "../services/words";
 
 export default function Cards() {
-  const [words, setWords] = useState<Word[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    data: words,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["externalWords"],
+    queryFn: getExternalWords,
+  });
 
-  const BACKEND_URL = "some url";
-
-  useEffect(() => {
-    const getWords = async () => {
-      try {
-        const { data } = await axios.get(`${BACKEND_URL}/words/external`);
-        setError("some error 🦊");
-        setWords([]);
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getWords();
-  }, []);
-
-  console.log(words);
-
-  if (loading) {
-    return <Moose text="Loading your words..." />;
+  if (isLoading) {
+    return <Moose text="Loading words..." />;
   }
 
-  if (error) {
+  if (isError) {
     return <Moose text="Oops! Something went wrong! 😢" />;
   }
 

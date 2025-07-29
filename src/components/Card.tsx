@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useWords } from "../context/WordContext";
-import { showError, showSuccess, showWarningConfirm } from "../utils";
+import { showWarningConfirm } from "../utils";
 import type { Word } from "../types/word.types";
+import { useUpdateWord, useDeleteWord } from "../hooks/useWordMutation";
 
 export default function Card({
   word,
@@ -12,12 +12,14 @@ export default function Card({
 }) {
   const [flipped, setFlipped] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const { updateWord, deleteWord, addWord } = useWords();
   const [updatedWord, setUpdatedWord] = useState({
     english: word.english,
     finnish: word.finnish,
     example: word.example,
   });
+
+  const updateWordMutation = useUpdateWord();
+  const deleteWordMutation = useDeleteWord();
 
   const openEditMode = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -31,21 +33,7 @@ export default function Card({
 
   const handleUpdate = async (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    try {
-      if (word.id) {
-        await updateWord(word.id, updatedWord);
-        setIsEditing(false);
-        showSuccess("Saved!");
-      }
-    } catch (e) {
-      setUpdatedWord({
-        english: word.english,
-        finnish: word.finnish,
-        example: word.example,
-      });
-      console.error(e);
-      showError("Error updating");
-    }
+    await updateWordMutation.mutateAsync({ id: word.id, updatedWord });
   };
 
   const handleDelete = async (e: { stopPropagation: () => void }) => {
@@ -55,15 +43,7 @@ export default function Card({
       "You won't be able to recover this word!",
     );
     if (result.isConfirmed) {
-      try {
-        if (word.id) {
-          await deleteWord(word.id);
-          showSuccess("Deleted!", "The word has been deleted.");
-        }
-      } catch (e) {
-        console.error(e);
-        showError("Error updating");
-      }
+      await deleteWordMutation.mutateAsync(word.id);
     }
   };
 
@@ -72,19 +52,8 @@ export default function Card({
     setIsEditing(false);
   };
 
-  const handleSave = async (e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    try {
-      await addWord({
-        finnish: word.finnish,
-        english: word.english,
-        example: word.example,
-      });
-      showSuccess("Saved!");
-    } catch (e) {
-      console.error(e);
-      showError("Error saving");
-    }
+  const handleSave = () => {
+    console.log("saved");
   };
 
   return (
