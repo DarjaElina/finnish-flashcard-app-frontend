@@ -1,9 +1,8 @@
-// src/api/index.ts
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
 const api = axios.create({
-  baseURL: BACKEND_URL || "http://localhost:8080/api",
+  baseURL: BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
