@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 import { signup } from "../services/auth";
-import { showError } from "../utils";
+import { showError } from "../utils/swal";
 
 const SignUpSchema = z
   .object({
@@ -36,7 +36,7 @@ export default function SignUpForm() {
     mutationFn: (data: SignUpFormData) => signup(data),
     onSuccess: () => {
       reset();
-      navigate("/home");
+      navigate("/");
     },
     onError: (e) => {
       showError(e.message ?? "Error signing up");
@@ -115,7 +115,11 @@ export default function SignUpForm() {
             <p className="form-error">{errors.password_confirmation.message}</p>
           )}
 
-          <button type="submit" disabled={signUpMutation.isPending} className="form-button">
+          <button
+            type="submit"
+            disabled={signUpMutation.isPending}
+            className="form-button"
+          >
             {signUpMutation.isPending ? "Creating account..." : "Sign Up"}
           </button>
         </form>

@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { login } from "../services/auth";
-import { showError } from "../utils";
+import { showError } from "../utils/swal";
 
 const LoginSchema = z.object({
   email: z.email("Invalid email address"),

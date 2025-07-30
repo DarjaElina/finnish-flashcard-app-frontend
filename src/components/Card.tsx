@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { showWarningConfirm } from "../utils";
+import { showWarningConfirm } from "../utils/swal";
 import type { Word } from "../types/word.types";
 import {
   useUpdateWord,

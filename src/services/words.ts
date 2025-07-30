@@ -16,12 +16,12 @@ export const getWords = async () => {
 };
 
 export const updateWord = async (id: string, word: Omit<Word, "id">) => {
-  const response = await api.post(`/words/${id}`, word);
+  const response = await api.put(`/words/${id}`, word);
   return response.data;
 };
 
 export const deleteWord = async (id: string) => {
-  const response = await api.post(`/words/${id}`);
+  const response = await api.delete(`/words/${id}`);
   return response.data;
 };
 

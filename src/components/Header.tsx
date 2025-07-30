@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
 import { logout } from "../services/auth";
 import { useNavigate } from "react-router";
-import { showError } from "../utils";
+import { showError } from "../utils/swal";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

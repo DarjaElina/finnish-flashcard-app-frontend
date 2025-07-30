@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createWord, deleteWord, updateWord } from "../services/words";
 import type { Word } from "../types/word.types";
-import { showSuccess, showError } from "../utils";
+import { showSuccess, showError } from "../utils/swal";
 
 export function useCreateWord() {
   const queryClient = useQueryClient();

@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { showSuccess, showError } from "../utils";
-import Moose from "./Moose";
+import { showSuccess, showError } from "../utils/swal";
 import { useCreateWord } from "../hooks/useWordMutation";
 
 const WordSchema = z.object({
@@ -43,7 +42,13 @@ export default function CreateCard() {
 
   return (
     <div className="form-wrapper">
-      <Moose text="Create your own flashcard! Add a Finnish word, its translation, and an example sentence." />
+      <div className="form-info">
+        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
+        <p>
+          Create your own flashcard! Add a Finnish word, its translation, and an
+          example sentence.
+        </p>
+      </div>
       <div className="form-container">
         <h2 className="form-title">Create a New Flashcard</h2>
         <form className="card-form" onSubmit={handleSubmit(onSubmit)}>

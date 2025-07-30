@@ -9,7 +9,7 @@ import LoginForm from "./components/LoginForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import DemoCards from "./components/DemoCards";
-import NotFound from "./components/NorFound";
+import NotFound from "./components/NotFound";
 
 function App() {
   const router = createBrowserRouter([
