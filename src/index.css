@@ -312,8 +312,7 @@ a.active,
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-soft);
   box-shadow: 0 8px 24px var(--shadow-glow);
-  width: 700px;
-  max-width: 100%;
+  max-width: 700px;
 }
 
 .moose-img {
@@ -391,9 +390,6 @@ a.active,
 }
 
 @media (max-width: 768px) {
-  .moose-helper {
-    max-width: 100%;
-  }
   .container {
     padding: 0.5rem;
   }
