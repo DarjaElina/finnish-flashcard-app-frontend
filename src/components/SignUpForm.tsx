@@ -115,8 +115,8 @@ export default function SignUpForm() {
             <p className="form-error">{errors.password_confirmation.message}</p>
           )}
 
-          <button type="submit" className="form-button">
-            Sign Up
+          <button type="submit" disabled={signUpMutation.isPending} className="form-button">
+            {signUpMutation.isPending ? "Creating account..." : "Sign Up"}
           </button>
         </form>
       </div>
