@@ -12,8 +12,8 @@ export function useCreateWord() {
       showSuccess("Word created!");
       queryClient.invalidateQueries({ queryKey: ["words"] });
     },
-    onError: () => {
-      showError("Error saving word");
+    onError: (e) => {
+      showError(e.message ?? "Error saving word");
     },
   });
 }
@@ -33,8 +33,8 @@ export function useUpdateWord() {
       showSuccess("Updated!");
       queryClient.invalidateQueries({ queryKey: ["words"] });
     },
-    onError: () => {
-      showError("Error updating word");
+    onError: (e) => {
+      showError(e.message ?? "Error updating word");
     },
   });
 }
@@ -48,8 +48,8 @@ export function useDeleteWord() {
       showSuccess("Deleted!", "The word has been deleted.");
       queryClient.invalidateQueries({ queryKey: ["words"] });
     },
-    onError: () => {
-      showError("Error deleting word");
+    onError: (e) => {
+      showError(e.message ?? "Error deleting word");
     },
   });
 }

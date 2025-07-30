@@ -6,6 +6,17 @@ import {
   useDeleteWord,
   useCreateWord,
 } from "../hooks/useWordMutation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import z from "zod";
+
+const EditSchema = z.object({
+  finnish: z.string().min(1, "Finnish word is required"),
+  english: z.string().min(1, "English translation is required"),
+  example: z.string().min(1, "Example sentence is required"),
+});
+
+type EditWordForm = z.infer<typeof EditSchema>;
 
 export default function Card({
   word,
@@ -18,32 +29,32 @@ export default function Card({
 }) {
   const [flipped, setFlipped] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedWord, setUpdatedWord] = useState({
-    english: word.english,
-    finnish: word.finnish,
-    example: word.example,
-  });
-
   const updateWordMutation = useUpdateWord();
   const deleteWordMutation = useDeleteWord();
   const newWordMutation = useCreateWord();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<EditWordForm>({
+    resolver: zodResolver(EditSchema),
+    defaultValues: {
+      finnish: word.finnish,
+      english: word.english,
+      example: word.example,
+    },
+  });
 
   const openEditMode = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsEditing(true);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setUpdatedWord((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleUpdate = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const onUpdate = async (data: EditWordForm) => {
     if (isDemo) return;
-    await updateWordMutation.mutateAsync({ id: word.id, updatedWord });
+    await updateWordMutation.mutateAsync({ id: word.id, updatedWord: data });
     setIsEditing(false);
   };
 
@@ -59,13 +70,7 @@ export default function Card({
     }
   };
 
-  const handleCancel = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsEditing(false);
-  };
-
   const handleSave = async (e: React.MouseEvent) => {
-    console.log("clicked");
     e.stopPropagation();
     if (isDemo) return;
     await newWordMutation.mutateAsync(word);
@@ -74,8 +79,6 @@ export default function Card({
   const handleCardClick = () => {
     if (!isEditing) setFlipped(!flipped);
   };
-
-  console.log(isDemo);
 
   return (
     <div
@@ -89,43 +92,62 @@ export default function Card({
         </div>
         <div className="flip-card-back">
           {isEditing ? (
-            <div className="edit-form">
+            <form
+              className="edit-form"
+              onSubmit={handleSubmit(onUpdate)}
+              onClick={(e) => e.stopPropagation()}
+            >
               <input
-                onChange={handleChange}
-                value={updatedWord.finnish}
-                name="finnish"
+                {...register("finnish")}
                 id="finnish"
                 type="text"
                 className="form-input edit-input"
               />
+              {errors.finnish && (
+                <p className="form-error">{errors.finnish.message}</p>
+              )}
+
               <input
-                onChange={handleChange}
-                value={updatedWord.english}
-                name="english"
+                {...register("english")}
                 id="english"
                 type="text"
                 className="form-input edit-input"
               />
+              {errors.english && (
+                <p className="form-error">{errors.english.message}</p>
+              )}
+
               <textarea
-                onChange={handleChange}
-                value={updatedWord.example}
-                name="example"
+                {...register("example")}
                 id="example"
                 className="form-input edit-input"
+                rows={3}
               />
+              {errors.example && (
+                <p className="form-error">{errors.example.message}</p>
+              )}
+
               <div className="edit-btns">
                 <button
-                  onClick={handleUpdate}
+                  disabled={!isDirty || updateWordMutation.isPending}
+                  type="submit"
                   className="form-button"
-                  disabled={updateWordMutation.isPending || isDemo}
                 >
                   {updateWordMutation.isPending ? "Saving..." : "Save"}
                 </button>
-                <button onClick={handleCancel} className="form-button">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    reset();
+                    setIsEditing(false);
+                  }}
+                  className="form-button"
+                >
                   Cancel
                 </button>
               </div>
-            </div>
+            </form>
           ) : (
             <>
               <h2>✍️</h2>
@@ -140,9 +162,9 @@ export default function Card({
             <button
               onClick={handleSave}
               className="form-button"
-              disabled={isDemo}
+              disabled={isDemo || newWordMutation.isPending}
             >
-              Save
+              {newWordMutation.isPending ? "Saving..." : "Save"}
             </button>
           )}
 

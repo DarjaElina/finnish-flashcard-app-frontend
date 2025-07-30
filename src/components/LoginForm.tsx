@@ -1,40 +1,41 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { showError } from "../utils";
-import { login } from "../services/auth";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { clearAuthErrors } from "../utils/validation";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { login } from "../services/auth";
+import { showError } from "../utils";
+
+const LoginSchema = z.object({
+  email: z.email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginFormData = z.infer<typeof LoginSchema>;
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [errors] = useState({
-    email: "",
-    password: "",
-  });
   const navigate = useNavigate();
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(LoginSchema),
+  });
 
   const loginMutation = useMutation({
-    mutationFn: () => login(formData),
+    mutationFn: (data: LoginFormData) => login(data),
     onSuccess: () => {
       navigate("/saved");
-      clearAuthErrors();
     },
-    onError: () => {
-      showError("Error signing ip");
+    onError: (e) => {
+      showError(e.message ?? "Error signing in");
     },
   });
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    await loginMutation.mutateAsync();
+  const onSubmit = (data: LoginFormData) => {
+    loginMutation.mutate(data);
   };
 
   return (
@@ -52,35 +53,39 @@ export default function LoginForm() {
 
       <div className="form-container">
         <h2 className="form-title">Log In</h2>
-        <form className="card-form" onSubmit={handleSubmit}>
+        <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-label" htmlFor="email">
             Email
           </label>
           <input
+            placeholder="nice.moose@example.com"
             id="email"
-            name="email"
             type="email"
             className="form-input"
-            value={formData.email}
-            onChange={handleChange}
+            {...register("email")}
           />
-          {errors.email && <p className="form-error">{errors.email}</p>}
+          {errors.email && <p className="form-error">{errors.email.message}</p>}
 
           <label className="form-label" htmlFor="password">
             Password
           </label>
           <input
+            placeholder="••••••••"
             id="password"
-            name="password"
             type="password"
             className="form-input"
-            value={formData.password}
-            onChange={handleChange}
+            {...register("password")}
           />
-          {errors.password && <p className="form-error">{errors.password}</p>}
+          {errors.password && (
+            <p className="form-error">{errors.password.message}</p>
+          )}
 
-          <button type="submit" className="form-button">
-            Sign Up
+          <button
+            type="submit"
+            disabled={loginMutation.isPending}
+            className="form-button"
+          >
+            {loginMutation.isPending ? "Signing in..." : "Sign in"}
           </button>
         </form>
       </div>

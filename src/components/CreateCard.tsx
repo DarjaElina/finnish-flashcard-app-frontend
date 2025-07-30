@@ -1,49 +1,44 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { showSuccess, showError } from "../utils";
 import Moose from "./Moose";
-import type { Word } from "../types/word.types";
-import { clearWordErrors, validateWordForm } from "../utils/validation";
-import { useMutation } from "@tanstack/react-query";
 import { useCreateWord } from "../hooks/useWordMutation";
 
+const WordSchema = z.object({
+  finnish: z.string().min(1, "Finnish word is required"),
+  english: z.string().min(1, "English translation is required"),
+  example: z.string().min(1, "Example sentence is required"),
+});
+
+type WordFormData = z.infer<typeof WordSchema>;
+
 export default function CreateCard() {
-  const [formData, setFormData] = useState<Omit<Word, "id">>({
-    finnish: "",
-    english: "",
-    example: "",
-  });
-  const [errors, setErrors] = useState<Omit<Word, "id">>({
-    finnish: "",
-    english: "",
-    example: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<WordFormData>({
+    resolver: zodResolver(WordSchema),
   });
 
   const { mutateAsync: createWord } = useCreateWord();
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const newWordMutation = useMutation({
-    mutationFn: () => createWord(formData),
+  const mutation = useMutation({
+    mutationFn: (data: WordFormData) => createWord(data),
     onSuccess: () => {
       showSuccess("Word created!");
+      reset();
     },
     onError: () => {
       showError("Error saving word");
     },
   });
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const validationErrors = validateWordForm(formData);
-    if (Object.values(validationErrors).some((val) => val !== "")) {
-      setErrors(validationErrors);
-      return;
-    }
-    setErrors(clearWordErrors());
-    await createWord(formData);
+  const onSubmit = (data: WordFormData) => {
+    mutation.mutate(data);
   };
 
   return (
@@ -51,52 +46,52 @@ export default function CreateCard() {
       <Moose text="Create your own flashcard! Add a Finnish word, its translation, and an example sentence." />
       <div className="form-container">
         <h2 className="form-title">Create a New Flashcard</h2>
-        <form className="card-form" onSubmit={handleSubmit}>
+        <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-label" htmlFor="finnish">
             Finnish Word
           </label>
           <input
             id="finnish"
-            name="finnish"
             type="text"
             className="form-input"
-            value={formData.finnish}
-            onChange={handleChange}
+            {...register("finnish")}
           />
-          {errors.finnish && <p className="form-error">{errors.finnish}</p>}
+          {errors.finnish && (
+            <p className="form-error">{errors.finnish.message}</p>
+          )}
 
           <label className="form-label" htmlFor="english">
             English Translation
           </label>
           <input
             id="english"
-            name="english"
             type="text"
             className="form-input"
-            value={formData.english}
-            onChange={handleChange}
+            {...register("english")}
           />
-          {errors.english && <p className="form-error">{errors.english}</p>}
+          {errors.english && (
+            <p className="form-error">{errors.english.message}</p>
+          )}
 
           <label className="form-label" htmlFor="example">
             Example Sentence
           </label>
           <textarea
             id="example"
-            name="example"
             rows={3}
             className="form-textarea"
-            value={formData.example}
-            onChange={handleChange}
-          ></textarea>
-          {errors.example && <p className="form-error">{errors.example}</p>}
+            {...register("example")}
+          />
+          {errors.example && (
+            <p className="form-error">{errors.example.message}</p>
+          )}
 
           <button
-            disabled={newWordMutation.isPending}
+            disabled={mutation.isPending}
             type="submit"
             className="form-button"
           >
-            {newWordMutation.isPending ? "Creating..." : "Create"}
+            {mutation.isPending ? "Creating..." : "Create"}
           </button>
         </form>
       </div>

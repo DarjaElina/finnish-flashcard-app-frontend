@@ -1,60 +1,50 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { showError } from "../utils";
+import { z } from "zod";
 import { signup } from "../services/auth";
-import { validateAuthForm, clearAuthErrors } from "../utils/validation";
+import { showError } from "../utils";
+
+const SignUpSchema = z
+  .object({
+    name: z.string().min(1, "Name is required"),
+    email: z.email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    password_confirmation: z.string().min(6, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Passwords do not match",
+    path: ["password_confirmation"],
+  });
+
+type SignUpFormData = z.infer<typeof SignUpSchema>;
 
 export default function SignUpForm() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
   const navigate = useNavigate();
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(SignUpSchema),
+  });
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const signUpMutation = useMutation({
+    mutationFn: (data: SignUpFormData) => signup(data),
+    onSuccess: () => {
+      reset();
+      navigate("/home");
+    },
+    onError: (e) => {
+      showError(e.message ?? "Error signing up");
+    },
+  });
 
-    const validationErrors = validateAuthForm(formData);
-    if (Object.values(validationErrors).some((val) => val !== "")) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    setErrors(clearAuthErrors());
-
-    try {
-      await signup(
-        formData.email,
-        formData.email,
-        formData.password,
-        formData.confirmPassword,
-      );
-
-      setFormData({
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-
-      setTimeout(() => {
-        navigate("/home");
-      }, 3000);
-    } catch (err) {
-      console.error(err);
-      showError("Error signing up");
-    }
+  const onSubmit = (data: SignUpFormData) => {
+    signUpMutation.mutate(data);
   };
 
   return (
@@ -72,46 +62,57 @@ export default function SignUpForm() {
 
       <div className="form-container">
         <h2 className="form-title">Sign Up</h2>
-        <form className="card-form" onSubmit={handleSubmit}>
+        <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
+          <label className="form-label" htmlFor="name">
+            Name
+          </label>
+          <input
+            placeholder="Moose"
+            id="name"
+            type="text"
+            className="form-input"
+            {...register("name")}
+          />
+          {errors.name && <p className="form-error">{errors.name.message}</p>}
+
           <label className="form-label" htmlFor="email">
             Email
           </label>
           <input
+            placeholder="nice.moose@example.com"
             id="email"
-            name="email"
             type="email"
             className="form-input"
-            value={formData.email}
-            onChange={handleChange}
+            {...register("email")}
           />
-          {errors.email && <p className="form-error">{errors.email}</p>}
+          {errors.email && <p className="form-error">{errors.email.message}</p>}
 
           <label className="form-label" htmlFor="password">
             Password
           </label>
           <input
+            placeholder="••••••••"
             id="password"
-            name="password"
             type="password"
             className="form-input"
-            value={formData.password}
-            onChange={handleChange}
+            {...register("password")}
           />
-          {errors.password && <p className="form-error">{errors.password}</p>}
+          {errors.password && (
+            <p className="form-error">{errors.password.message}</p>
+          )}
 
-          <label className="form-label" htmlFor="confirmPassword">
-            Confirm password
+          <label className="form-label" htmlFor="password_confirmation">
+            Confirm Password
           </label>
           <input
-            id="confirmPassword"
-            name="confirmPassword"
+            placeholder="••••••••"
+            id="password_confirmation"
             type="password"
             className="form-input"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            {...register("password_confirmation")}
           />
-          {errors.confirmPassword && (
-            <p className="form-error">{errors.confirmPassword}</p>
+          {errors.password_confirmation && (
+            <p className="form-error">{errors.password_confirmation.message}</p>
           )}
 
           <button type="submit" className="form-button">
