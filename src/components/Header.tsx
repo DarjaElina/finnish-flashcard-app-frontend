@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
@@ -31,7 +31,9 @@ export default function Header() {
   return (
     <header className="app-header">
       <div className="header-top">
-        <h1>Finnish Flashcards 🇫🇮</h1>
+        <Link className="logo" to="/">
+          <h1>Finnish Flashcards 🇫🇮</h1>
+        </Link>
         <button
           className="hamburger"
           onClick={toggleMenu}

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { z } from "zod";
 import { signup } from "../services/auth";
 import { showError } from "../utils/swal";
+import Moose from "./Moose";
 
 const SignUpSchema = z
   .object({
@@ -50,8 +51,10 @@ export default function SignUpForm() {
   return (
     <div className="form-wrapper">
       <div className="form-info">
-        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
-        <p>New here? Let’s make learning an adventure! ✨</p>
+        <Moose
+          hasBg={true}
+          text="New here? Let’s make learning an adventure!"
+        />
         <p className="form-login-text">
           Already have an account?{" "}
           <a href="/login" className="form-login-link">

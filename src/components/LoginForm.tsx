@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { login } from "../services/auth";
 import { showError } from "../utils/swal";
+import Moose from "./Moose";
 
 const LoginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -41,8 +42,10 @@ export default function LoginForm() {
   return (
     <div className="form-wrapper">
       <div className="form-info">
-        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
-        <p>Welcome back! Log in to keep building your flashcard kingdom ✨</p>
+        <Moose
+          hasBg={true}
+          text="Welcome back! Log in to keep building your flashcard kingdom"
+        />
         <p className="form-login-text">
           Don't have an account?{" "}
           <a href="/login" className="form-login-link">

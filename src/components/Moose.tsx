@@ -1,8 +1,14 @@
-export default function Moose({ text }: { text: string }) {
+export default function Moose({
+  text,
+  hasBg,
+}: {
+  text: string;
+  hasBg?: boolean;
+}) {
   return (
     <div className="moose-helper">
-      <img src="moose.png" alt="moose" className="moose-img" />
-      <p className="moose-text">{text}</p>
+      <img src="moose.png" alt="moose" className="moose-slide-img" />
+      <p className={`moose-text ${hasBg ? "light" : "dark"}`}>{text}</p>
     </div>
   );
 }

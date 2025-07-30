@@ -3,6 +3,7 @@ import Moose from "./Moose";
 import type { Word } from "../types/word.types";
 import { useQuery } from "@tanstack/react-query";
 import { getExternalWords } from "../services/words";
+import MooseLoader from "./MooseLoader";
 
 export default function Cards() {
   const {
@@ -18,7 +19,7 @@ export default function Cards() {
   console.log(words);
 
   if (isLoading) {
-    return <Moose text="Loading words..." />;
+    return <MooseLoader />;
   }
 
   if (isError || words.length === 0 || !Array.isArray(words)) {

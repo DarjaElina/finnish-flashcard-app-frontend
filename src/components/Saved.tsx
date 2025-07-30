@@ -2,12 +2,13 @@ import { useWords } from "../hooks/useWords";
 import type { Word } from "../types/word.types";
 import Card from "./Card";
 import Moose from "./Moose";
+import MooseLoader from "./MooseLoader";
 
 export default function Cards() {
   const { data: words, isLoading, isError } = useWords();
 
   if (isLoading) {
-    return <Moose text="Loading your words..." />;
+    return <MooseLoader />;
   }
 
   if (isError) {
