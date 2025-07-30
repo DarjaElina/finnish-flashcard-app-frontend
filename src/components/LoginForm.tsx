@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { showError } from "../utils";
-import Moose from "./Moose";
 import { login } from "../services/auth";
 import { useMutation } from "@tanstack/react-query";
 import { clearAuthErrors } from "../utils/validation";
@@ -40,7 +39,17 @@ export default function LoginForm() {
 
   return (
     <div className="form-wrapper">
-      <Moose text="Welcome back! Log in to keep building your flashcard kingdom 🏰" />
+      <div className="form-info">
+        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
+        <p>Welcome back! Log in to keep building your flashcard kingdom ✨</p>
+        <p className="form-login-text">
+          Don't have an account?{" "}
+          <a href="/login" className="form-login-link">
+            Sign up
+          </a>
+        </p>
+      </div>
+
       <div className="form-container">
         <h2 className="form-title">Log In</h2>
         <form className="card-form" onSubmit={handleSubmit}>
@@ -50,7 +59,7 @@ export default function LoginForm() {
           <input
             id="email"
             name="email"
-            type="text"
+            type="email"
             className="form-input"
             value={formData.email}
             onChange={handleChange}
@@ -70,12 +79,8 @@ export default function LoginForm() {
           />
           {errors.password && <p className="form-error">{errors.password}</p>}
 
-          <button
-            disabled={loginMutation.isPending}
-            type="submit"
-            className="form-button"
-          >
-            {loginMutation.isPending ? "Signing in..." : "Sign in"}
+          <button type="submit" className="form-button">
+            Sign Up
           </button>
         </form>
       </div>

@@ -51,17 +51,17 @@ export default function Header() {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/cards"
-              className="nav-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Cards
-            </NavLink>
-          </li>
           {user && (
             <>
+              <li>
+                <NavLink
+                  to="/cards"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Cards
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to="/saved"
@@ -93,6 +93,15 @@ export default function Header() {
           )}
           {!user && (
             <>
+              <li>
+                <NavLink
+                  to="/demo-cards"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Demo
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to="/sign-up"

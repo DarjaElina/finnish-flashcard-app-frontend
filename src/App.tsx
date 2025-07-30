@@ -8,6 +8,8 @@ import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import DemoCards from "./components/DemoCards";
+import NotFound from "./components/NorFound";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,10 +22,6 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/cards",
-          element: <Cards />,
-        },
-        {
           element: <ProtectedRoute />,
           children: [
             {
@@ -33,6 +31,10 @@ function App() {
             {
               path: "/create",
               element: <CreateCard />,
+            },
+            {
+              path: "/cards",
+              element: <Cards />,
             },
           ],
         },
@@ -47,9 +49,17 @@ function App() {
               path: "/login",
               element: <LoginForm />,
             },
+            {
+              path: "/demo-cards",
+              element: <DemoCards />,
+            },
           ],
         },
       ],
+    },
+    {
+      path: "/*",
+      element: <NotFound />,
     },
   ]);
 

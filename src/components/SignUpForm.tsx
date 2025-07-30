@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { showError } from "../utils";
-import Moose from "./Moose";
 import { signup } from "../services/auth";
 import { validateAuthForm, clearAuthErrors } from "../utils/validation";
 
@@ -60,7 +59,17 @@ export default function SignUpForm() {
 
   return (
     <div className="form-wrapper">
-      <Moose text="New here? Let’s make learning an adventure! ✨" />
+      <div className="form-info">
+        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
+        <p>New here? Let’s make learning an adventure! ✨</p>
+        <p className="form-login-text">
+          Already have an account?{" "}
+          <a href="/login" className="form-login-link">
+            Log in
+          </a>
+        </p>
+      </div>
+
       <div className="form-container">
         <h2 className="form-title">Sign Up</h2>
         <form className="card-form" onSubmit={handleSubmit}>

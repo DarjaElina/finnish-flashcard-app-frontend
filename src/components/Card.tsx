@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { showWarningConfirm } from "../utils";
 import type { Word } from "../types/word.types";
-import { useUpdateWord, useDeleteWord } from "../hooks/useWordMutation";
+import {
+  useUpdateWord,
+  useDeleteWord,
+  useCreateWord,
+} from "../hooks/useWordMutation";
 
 export default function Card({
   word,
   isSaved,
+  isDemo,
 }: {
   word: Word;
   isSaved?: boolean;
+  isDemo?: boolean;
 }) {
   const [flipped, setFlipped] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -20,24 +26,30 @@ export default function Card({
 
   const updateWordMutation = useUpdateWord();
   const deleteWordMutation = useDeleteWord();
+  const newWordMutation = useCreateWord();
 
-  const openEditMode = (e: { stopPropagation: () => void }) => {
+  const openEditMode = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsEditing(true);
   };
 
-  const handleChange = (e: { target: { name: string; value: string } }) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setUpdatedWord((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdate = async (e: { stopPropagation: () => void }) => {
+  const handleUpdate = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isDemo) return;
     await updateWordMutation.mutateAsync({ id: word.id, updatedWord });
+    setIsEditing(false);
   };
 
-  const handleDelete = async (e: { stopPropagation: () => void }) => {
+  const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isDemo) return;
     const result = await showWarningConfirm(
       "Are you sure?",
       "You won't be able to recover this word!",
@@ -47,22 +59,32 @@ export default function Card({
     }
   };
 
-  const handleCancel = (e: { stopPropagation: () => void }) => {
+  const handleCancel = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsEditing(false);
   };
 
-  const handleSave = () => {
-    console.log("saved");
+  const handleSave = async (e: React.MouseEvent) => {
+    console.log("clicked");
+    e.stopPropagation();
+    if (isDemo) return;
+    await newWordMutation.mutateAsync(word);
   };
+
+  const handleCardClick = () => {
+    if (!isEditing) setFlipped(!flipped);
+  };
+
+  console.log(isDemo);
 
   return (
     <div
       className={`flip-card ${flipped && "flipped"}`}
-      onClick={() => !isEditing && setFlipped(!flipped)}
+      onClick={handleCardClick}
     >
       <div className="flip-card-inner">
         <div className="flip-card-front">
+          <h2>🇫🇮 ✨</h2>
           <h2>{word.finnish}</h2>
         </div>
         <div className="flip-card-back">
@@ -92,8 +114,12 @@ export default function Card({
                 className="form-input edit-input"
               />
               <div className="edit-btns">
-                <button onClick={handleUpdate} className="form-button">
-                  Save
+                <button
+                  onClick={handleUpdate}
+                  className="form-button"
+                  disabled={updateWordMutation.isPending || isDemo}
+                >
+                  {updateWordMutation.isPending ? "Saving..." : "Save"}
                 </button>
                 <button onClick={handleCancel} className="form-button">
                   Cancel
@@ -102,6 +128,7 @@ export default function Card({
             </div>
           ) : (
             <>
+              <h2>✍️</h2>
               <h2>{word.english}</h2>
               <p>
                 <em>{word.example}</em>
@@ -110,7 +137,11 @@ export default function Card({
           )}
 
           {!isSaved && !isEditing && (
-            <button onClick={handleSave} className="form-button">
+            <button
+              onClick={handleSave}
+              className="form-button"
+              disabled={isDemo}
+            >
               Save
             </button>
           )}
@@ -120,14 +151,16 @@ export default function Card({
               <button
                 onClick={openEditMode}
                 className="form-button secondary-button"
+                disabled={isDemo}
               >
                 Edit
               </button>
               <button
                 onClick={handleDelete}
                 className="form-button danger-button"
+                disabled={deleteWordMutation.isPending || isDemo}
               >
-                Delete
+                {deleteWordMutation.isPending ? "Deleting..." : "Delete"}
               </button>
             </div>
           )}
