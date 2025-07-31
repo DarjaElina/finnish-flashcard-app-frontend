@@ -1,8 +1,8 @@
 .flipCard {
-  max-width: 14rem;
-  max-height: 14rem;
-  width: 14rem;
-  height: 14rem;
+  max-width: 15rem;
+  max-height: 15rem;
+  width: 15rem;
+  height: 15rem;
   perspective: 1000px;
   border-radius: 1rem;
   margin: 1rem;
