@@ -16,14 +16,14 @@ export default function AllCards() {
 
   if (!words || words.length === 0) {
     return (
-      <Moose text="Hmm... no words here just yet! Let’s add some and start your Finnish journey ✨" />
+      <Moose text="Hmm... no words here just yet! Let’s add some and start your Finnish journey" />
     );
   }
 
   return (
     <div className="cards-container">
       <Moose text="Here are your saved flashcards! You can edit or delete them anytime." />
-      <Cards words={words} />
+      <Cards isSaved={true} words={words} />
     </div>
   );
 }

@@ -78,7 +78,7 @@ export default function LoginForm() {
         </button>
       </form>
       <FormInfo
-        question="Don't have an account"
+        question="Don't have an account?"
         action="Sign Up"
         url="/sign-up"
       />

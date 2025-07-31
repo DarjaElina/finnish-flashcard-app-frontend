@@ -9,6 +9,8 @@ import {
 import styles from "./Card.module.css";
 import clsx from "clsx";
 import EditCardForm, { type EditWordForm } from "../EditCardForm/EditCardForm";
+import Modal from "react-modal";
+Modal.setAppElement("#root");
 
 export default function Card({
   word,
@@ -20,20 +22,15 @@ export default function Card({
   isDemo?: boolean;
 }) {
   const [flipped, setFlipped] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const updateWordMutation = useUpdateWord();
   const deleteWordMutation = useDeleteWord();
   const newWordMutation = useCreateWord();
 
-  const openEditMode = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsEditing(true);
-  };
-
-  const onUpdate = async (data: EditWordForm) => {
+  const handleUpdate = async (data: EditWordForm) => {
     if (isDemo) return;
     await updateWordMutation.mutateAsync({ id: word.id, updatedWord: data });
-    setIsEditing(false);
+    setIsOpen(false);
   };
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -55,8 +52,17 @@ export default function Card({
   };
 
   const handleCardClick = () => {
-    if (!isEditing) setFlipped(!flipped);
+    if (!modalIsOpen) setFlipped(!flipped);
   };
+
+  function openModal(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   return (
     <div
@@ -68,21 +74,28 @@ export default function Card({
           <h2>{word.finnish}</h2>
         </div>
         <div className={styles.flipCardBack}>
-          {isEditing ? (
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            overlayClassName="overlay"
+            className={styles.modalForm}
+            contentLabel="Edit word form"
+          >
             <EditCardForm
               word={word}
-              onUpdate={onUpdate}
-              onCancel={() => setIsEditing(false)}
-              isLoading={updateWordMutation.isPending}
+              onUpdate={handleUpdate}
+              onCancel={closeModal}
+              isLoading={false}
             />
-          ) : (
+          </Modal>
+          {!modalIsOpen && (
             <>
               <h2>{word.english}</h2>
               <em className={styles.example}>{word.example}</em>
             </>
           )}
 
-          {!isSaved && !isEditing && (
+          {!isSaved && !modalIsOpen && (
             <button
               onClick={handleSave}
               className="btn-primary"
@@ -92,10 +105,10 @@ export default function Card({
             </button>
           )}
 
-          {isSaved && !isEditing && (
-            <div>
+          {isSaved && !modalIsOpen && (
+            <div className={styles.btns}>
               <button
-                onClick={openEditMode}
+                onClick={openModal}
                 className="btn-primary"
                 disabled={isDemo}
               >

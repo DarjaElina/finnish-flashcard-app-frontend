@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import type { Word } from "../../types/word.types";
+import styles from "./EditCardForm.module.css";
 
 const EditSchema = z.object({
   finnish: z.string().min(1, "Finnish word is required"),
@@ -39,24 +40,26 @@ export default function EditCardForm({
 
   return (
     <form
-      className="edit-form"
       onSubmit={handleSubmit(onUpdate)}
       onClick={(e) => e.stopPropagation()}
     >
-      <input {...register("finnish")} type="text" className="form-input" />
+      <label htmlFor="finnish">Finnish</label>
+      <input {...register("finnish")} type="text" />
       {errors.finnish && <p className="form-error">{errors.finnish.message}</p>}
 
-      <input {...register("english")} type="text" className="form-input" />
+      <label htmlFor="english">English</label>
+      <input {...register("english")} type="text" />
       {errors.english && <p className="form-error">{errors.english.message}</p>}
 
-      <textarea {...register("example")} className="form-input" rows={3} />
+      <label htmlFor="example">Example</label>
+      <textarea {...register("example")} rows={3} />
       {errors.example && <p className="form-error">{errors.example.message}</p>}
 
-      <div className="flex-btns">
+      <div className={styles.btns}>
         <button
           disabled={!isDirty || isLoading}
           type="submit"
-          className="form-button"
+          className="btn-primary"
         >
           {isLoading ? "Saving..." : "Save"}
         </button>

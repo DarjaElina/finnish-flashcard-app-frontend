@@ -21,7 +21,7 @@ export default function AllCards() {
 
   if (isError || words.length === 0 || !Array.isArray(words)) {
     return (
-      <Moose text="Oops! I tried fetching words from the cloud, but something went wrong. Maybe the internet moose got tangled? 🫎💻" />
+      <Moose text="Oops! I tried fetching words from the cloud, but something went wrong. Maybe the internet moose got tangled?" />
     );
   }
 

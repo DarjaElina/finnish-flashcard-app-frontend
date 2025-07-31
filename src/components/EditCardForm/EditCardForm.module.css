@@ -1,0 +1,28 @@
+.btns {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.btns button {
+  color: var(--text-light);
+  padding: 0.5rem;
+  border-radius: 0.25em;
+}
+
+.btns button:disabled {
+  color: var(--text-light);
+}
+
+.btns button:nth-child(1) {
+  background-color: #402651;
+}
+
+.btns button:nth-child(2) {
+  background-color: #888888;
+}
+
+.btns button:nth-child(2):hover {
+  background-color: #615f5f;
+}
