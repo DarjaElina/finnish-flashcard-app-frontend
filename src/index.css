@@ -196,12 +196,9 @@ textarea:focus {
   }
 }
 
-
 @media (max-width: 768px) {
   .btn-primary {
     margin-top: 0.5rem;
     padding: 0.3rem 1.2rem;
   }
-
 }
-

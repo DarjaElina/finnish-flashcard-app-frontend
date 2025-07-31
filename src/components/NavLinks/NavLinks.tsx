@@ -36,7 +36,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
         <NavLink
           to="/"
           className={styles.navLink}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => setMenuOpen?.(false)}
         >
           Home
         </NavLink>
@@ -47,7 +47,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/cards"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Cards
             </NavLink>
@@ -56,7 +56,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/saved"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Saved cards
             </NavLink>
@@ -65,7 +65,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/create"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Create card
             </NavLink>
@@ -87,7 +87,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/demo"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Demo
             </NavLink>
@@ -96,7 +96,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/sign-up"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Sign Up
             </NavLink>
@@ -105,7 +105,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <NavLink
               to="/login"
               className={styles.navLink}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setMenuOpen?.(false)}
             >
               Log In
             </NavLink>

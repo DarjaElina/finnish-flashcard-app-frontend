@@ -10,9 +10,7 @@ export default function MooseLoader() {
         width="80"
         height="80"
       />
-      <p>
-        Loading...
-      </p>
+      <p>Loading...</p>
     </div>
   );
 }

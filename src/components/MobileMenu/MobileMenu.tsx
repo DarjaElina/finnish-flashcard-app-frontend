@@ -1,4 +1,4 @@
-import { AlignLeft, AlignRight, X } from "lucide-react";
+import { AlignLeft, X } from "lucide-react";
 import NavLinks from "../NavLinks/NavLinks";
 import styles from "./MobileMenu.module.css";
 import { useState } from "react";
