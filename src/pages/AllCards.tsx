@@ -1,11 +1,10 @@
-import Card from "./Card";
-import Moose from "./Moose";
-import type { Word } from "../types/word.types";
 import { useQuery } from "@tanstack/react-query";
+import Moose from "../components/Moose/Moose";
+import MooseLoader from "../components/MooseLoader/MooseLoader";
 import { getExternalWords } from "../services/words";
-import MooseLoader from "./MooseLoader";
+import Cards from "../components/Cards/Cards";
 
-export default function Cards() {
+export default function AllCards() {
   const {
     data: words,
     isSuccess,
@@ -15,8 +14,6 @@ export default function Cards() {
     queryKey: ["externalWords"],
     queryFn: getExternalWords,
   });
-
-  console.log(words);
 
   if (isLoading) {
     return <MooseLoader />;
@@ -30,16 +27,8 @@ export default function Cards() {
 
   return (
     <div className="cards-container">
-      {isSuccess && Array.isArray(words) && (
-        <>
-          <Moose text="These are words from the outside world! Tap a card to flip it. Save the ones you like!" />
-          <div className="cards">
-            {words.map((w: Word) => (
-              <Card key={w.id} word={w} />
-            ))}
-          </div>
-        </>
-      )}
+      <Moose text="These are words from the outside world! Tap a card to flip it. Save the ones you like!" />
+      {isSuccess && Array.isArray(words) && <Cards words={words} />}
     </div>
   );
 }

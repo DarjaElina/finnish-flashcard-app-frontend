@@ -1,0 +1,25 @@
+:root {
+  --accent-purple: #7d628f;
+  --accent-purple-hover: #9879a8;
+  --accent-yellow: #f4ec12;
+
+  --bg-blur: rgba(30, 30, 40, 0.6);
+  --bg-panel: rgba(74, 58, 85, 0.85);
+  --bg-sidebar: rgb(74, 58, 85);
+
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --border-dark: hsl(240, 5%, 22%);
+  --border-highlight: hsl(48, 100%, 65%);
+  --border-highlight-glow: hsla(48, 100%, 65%, 0.3);
+
+  --text-light: #f4f4f4;
+  --text-muted: #cfcfcf;
+  --text-muted-dark: hsl(240, 5%, 64%);
+  --text-muted-lighter: hsl(240, 6%, 85%);
+  --text-dark: #2c2232;
+  --text-error: #ff8888;
+
+  --shadow-glow: rgba(0, 0, 0, 0.3);
+
+  --header-height: 20rem;
+}

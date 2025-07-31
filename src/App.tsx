@@ -1,15 +1,18 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./components/Home";
-import Cards from "./components/Cards";
-import Saved from "./components/Saved";
-import CreateCard from "./components/CreateCard";
-import Root from "./components/Root";
-import SignUpForm from "./components/SignUpForm";
-import LoginForm from "./components/LoginForm";
-import ProtectedRoute from "./components/ProtectedRoute";
-import PublicRoute from "./components/PublicRoute";
-import DemoCards from "./components/DemoCards";
-import NotFound from "./components/NotFound";
+import MooseLoader from "./components/MooseLoader/MooseLoader";
+const Home = lazy(() => import("./components/Home/Home"));
+const CreateCard = lazy(() => import("./components/CreateCard"));
+const Root = lazy(() => import("./components/Root"));
+const SignUpForm = lazy(() => import("./components/SignUpForm"));
+const LoginForm = lazy(() => import("./components/LoginForm"));
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
+const PublicRoute = lazy(() => import("./components/PublicRoute"));
+const NotFound = lazy(() => import("./components/NotFound/NotFound"));
+
+const DemoCards = lazy(() => import("./pages/DemoCards"));
+const AllCards = lazy(() => import("./pages/AllCards"));
+const SavedCards = lazy(() => import("./pages/SavedCards"));
 
 function App() {
   const router = createBrowserRouter([
@@ -24,46 +27,29 @@ function App() {
         {
           element: <ProtectedRoute />,
           children: [
-            {
-              path: "/saved",
-              element: <Saved />,
-            },
-            {
-              path: "/create",
-              element: <CreateCard />,
-            },
-            {
-              path: "/cards",
-              element: <Cards />,
-            },
+            { path: "/saved", element: <SavedCards /> },
+            { path: "/create", element: <CreateCard /> },
+            { path: "/cards", element: <AllCards /> },
           ],
         },
         {
           element: <PublicRoute />,
           children: [
-            {
-              path: "/sign-up",
-              element: <SignUpForm />,
-            },
-            {
-              path: "/login",
-              element: <LoginForm />,
-            },
-            {
-              path: "/demo-cards",
-              element: <DemoCards />,
-            },
+            { path: "/sign-up", element: <SignUpForm /> },
+            { path: "/login", element: <LoginForm /> },
+            { path: "/demo", element: <DemoCards /> },
           ],
         },
+        { path: "/*", element: <NotFound /> },
       ],
-    },
-    {
-      path: "/*",
-      element: <NotFound />,
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<MooseLoader />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }
 
 export default App;

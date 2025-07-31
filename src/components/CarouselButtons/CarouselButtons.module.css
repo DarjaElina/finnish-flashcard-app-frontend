@@ -1,0 +1,15 @@
+.emblaButton {
+  background: var(--bg-panel);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.emblaButton:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}

@@ -1,0 +1,15 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+}
+
+.backHome {
+  margin: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--accent-purple);
+}
+
+.backHome:hover {
+  color: var(--accent-purple-hover);
+}

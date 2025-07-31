@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { showSuccess, showError } from "../utils/swal";
 import { useCreateWord } from "../hooks/useWordMutation";
+import Moose from "./Moose/Moose";
 
 const WordSchema = z.object({
   finnish: z.string().min(1, "Finnish word is required"),
@@ -42,64 +43,60 @@ export default function CreateCard() {
 
   return (
     <div className="form-wrapper">
-      <div className="form-info">
-        <img className="moose-img" src="/moose.png" alt="Friendly moose" />
-        <p>
-          Create your own flashcard! Add a Finnish word, its translation, and an
-          example sentence.
-        </p>
-      </div>
-      <div className="form-container">
-        <h2 className="form-title">Create a New Flashcard</h2>
-        <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-label" htmlFor="finnish">
-            Finnish Word
-          </label>
-          <input
-            id="finnish"
-            type="text"
-            className="form-input"
-            {...register("finnish")}
-          />
-          {errors.finnish && (
-            <p className="form-error">{errors.finnish.message}</p>
-          )}
+      <Moose
+        hasBg={true}
+        text="Create your own flashcard! Add a Finnish word, its translation, and an
+          example sentence."
+      />
+      <h2 className="form-title">Create a New Flashcard</h2>
+      <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
+        <label className="form-label" htmlFor="finnish">
+          Finnish Word
+        </label>
+        <input
+          id="finnish"
+          type="text"
+          className="form-input"
+          {...register("finnish")}
+        />
+        {errors.finnish && (
+          <p className="form-error">{errors.finnish.message}</p>
+        )}
 
-          <label className="form-label" htmlFor="english">
-            English Translation
-          </label>
-          <input
-            id="english"
-            type="text"
-            className="form-input"
-            {...register("english")}
-          />
-          {errors.english && (
-            <p className="form-error">{errors.english.message}</p>
-          )}
+        <label className="form-label" htmlFor="english">
+          English Translation
+        </label>
+        <input
+          id="english"
+          type="text"
+          className="form-input"
+          {...register("english")}
+        />
+        {errors.english && (
+          <p className="form-error">{errors.english.message}</p>
+        )}
 
-          <label className="form-label" htmlFor="example">
-            Example Sentence
-          </label>
-          <textarea
-            id="example"
-            rows={3}
-            className="form-textarea"
-            {...register("example")}
-          />
-          {errors.example && (
-            <p className="form-error">{errors.example.message}</p>
-          )}
+        <label className="form-label" htmlFor="example">
+          Example Sentence
+        </label>
+        <textarea
+          id="example"
+          rows={3}
+          className="form-textarea"
+          {...register("example")}
+        />
+        {errors.example && (
+          <p className="form-error">{errors.example.message}</p>
+        )}
 
-          <button
-            disabled={mutation.isPending}
-            type="submit"
-            className="form-button"
-          >
-            {mutation.isPending ? "Creating..." : "Create"}
-          </button>
-        </form>
-      </div>
+        <button
+          disabled={mutation.isPending}
+          type="submit"
+          className="btn-primary"
+        >
+          {mutation.isPending ? "Creating..." : "Create"}
+        </button>
+      </form>
     </div>
   );
 }

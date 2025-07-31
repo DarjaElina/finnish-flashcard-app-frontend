@@ -1,8 +1,6 @@
-import Card from "./Card";
-import Moose from "./Moose";
 import type { Word } from "../types/word.types";
 
-const demoWords: Word[] = [
+export const demoWords: Word[] = [
   {
     id: "1",
     english: "cat",
@@ -33,17 +31,10 @@ const demoWords: Word[] = [
     finnish: "aurinko",
     example: "Aurinko paistaa kirkkaasti.",
   },
+  {
+    id: "6",
+    english: "viulu",
+    finnish: "violin",
+    example: "Isä soittaa viulua.",
+  },
 ];
-
-export default function DemoCards() {
-  return (
-    <div className="cards-container">
-      <Moose text="These are demo words! Tap a card to flip it. Want to save or edit words? Log in to unlock those powers!" />
-      <div className="cards">
-        {demoWords.map((w) => (
-          <Card isDemo={true} key={w.id} word={w} />
-        ))}
-      </div>
-    </div>
-  );
-}

@@ -1,0 +1,33 @@
+.moose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-radius: 1rem;
+  max-width: 700px;
+  color: var(--text-dark);
+}
+
+.mooseText {
+  font-size: 1.2rem;
+  font-weight: 500;
+  max-width: 300px;
+  text-align: center;
+}
+
+.dark {
+  color: var(--text-dark);
+}
+
+.light {
+  color: var(--text-light);
+}
+@media (max-width: 768px) {
+ .mooseText {
+  font-size: 1rem;
+  }
+}
+
+

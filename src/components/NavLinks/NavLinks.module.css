@@ -1,0 +1,31 @@
+.navLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navLink {
+  all: unset;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding-bottom: 0.25rem;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--accent-yellow);
+  border-color: var(--accent-yellow);
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+}

@@ -1,10 +1,9 @@
+import Cards from "../components/Cards/Cards";
+import Moose from "../components/Moose/Moose";
+import MooseLoader from "../components/MooseLoader/MooseLoader";
 import { useWords } from "../hooks/useWords";
-import type { Word } from "../types/word.types";
-import Card from "./Card";
-import Moose from "./Moose";
-import MooseLoader from "./MooseLoader";
 
-export default function Cards() {
+export default function AllCards() {
   const { data: words, isLoading, isError } = useWords();
 
   if (isLoading) {
@@ -24,11 +23,7 @@ export default function Cards() {
   return (
     <div className="cards-container">
       <Moose text="Here are your saved flashcards! You can edit or delete them anytime." />
-      <div className="cards">
-        {words.map((w: Word) => (
-          <Card key={w.id} word={w} isSaved />
-        ))}
-      </div>
+      <Cards words={words} />
     </div>
   );
 }

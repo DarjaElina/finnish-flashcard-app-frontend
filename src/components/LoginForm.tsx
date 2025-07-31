@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { login } from "../services/auth";
 import { showError } from "../utils/swal";
-import Moose from "./Moose";
+import Moose from "./Moose/Moose";
+import FormInfo from "./FormInfo/FormInfo";
 
 const LoginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -41,57 +42,46 @@ export default function LoginForm() {
 
   return (
     <div className="form-wrapper">
-      <div className="form-info">
-        <Moose
-          hasBg={true}
-          text="Welcome back! Log in to keep building your flashcard kingdom"
+      <h2>Log In</h2>
+      <Moose
+        hasBg={true}
+        text="Welcome back! Log in to keep building your flashcard kingdom"
+      />
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="email">Email</label>
+        <input
+          placeholder="nice.moose@example.com"
+          id="email"
+          type="email"
+          {...register("email")}
         />
-        <p className="form-login-text">
-          Don't have an account?{" "}
-          <a href="/login" className="form-login-link">
-            Sign up
-          </a>
-        </p>
-      </div>
+        {errors.email && <p className="form-error">{errors.email.message}</p>}
 
-      <div className="form-container">
-        <h2 className="form-title">Log In</h2>
-        <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
-          <label className="form-label" htmlFor="email">
-            Email
-          </label>
-          <input
-            placeholder="nice.moose@example.com"
-            id="email"
-            type="email"
-            className="form-input"
-            {...register("email")}
-          />
-          {errors.email && <p className="form-error">{errors.email.message}</p>}
+        <label htmlFor="password">Password</label>
+        <input
+          placeholder="••••••••"
+          id="password"
+          type="password"
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className="form-error">{errors.password.message}</p>
+        )}
 
-          <label className="form-label" htmlFor="password">
-            Password
-          </label>
-          <input
-            placeholder="••••••••"
-            id="password"
-            type="password"
-            className="form-input"
-            {...register("password")}
-          />
-          {errors.password && (
-            <p className="form-error">{errors.password.message}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loginMutation.isPending}
-            className="form-button"
-          >
-            {loginMutation.isPending ? "Signing in..." : "Sign in"}
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          disabled={loginMutation.isPending}
+          className="btn-primary"
+        >
+          {loginMutation.isPending ? "Signing in..." : "Log in"}
+        </button>
+      </form>
+      <FormInfo
+        question="Don't have an account"
+        action="Sign Up"
+        url="/sign-up"
+      />
     </div>
   );
 }
