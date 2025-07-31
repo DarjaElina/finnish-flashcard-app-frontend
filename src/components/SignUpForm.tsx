@@ -54,7 +54,7 @@ export default function SignUpForm() {
       <h2 className="form-title">Sign Up</h2>
       <Moose hasBg={true} text="New here? Let's make learning an adventure!" />
 
-      <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-label" htmlFor="name">
           Name
         </label>

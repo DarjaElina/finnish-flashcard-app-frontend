@@ -1,8 +1,8 @@
 .flipCard {
-  max-width: 16rem;
-  max-height: 20rem;
-  width: 15rem;
-  height: 15rem;
+  max-width: 14rem;
+  max-height: 14rem;
+  width: 14rem;
+  height: 14rem;
   perspective: 1000px;
   border-radius: 1rem;
   margin: 1rem;
@@ -44,4 +44,35 @@
   background: var(--bg-blur);
   color: var(--text-light);
   transform: rotateY(180deg);
+}
+
+.example {
+  max-width: 80%;
+}
+
+@media (max-width: 500px) {
+  .flipCard {
+    max-width: 12rem;
+    max-height: 12rem;
+  }
+
+  .flipCard {
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .flipCard {
+    max-width: 20rem;
+    max-height: 20rem;
+    width: 20rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .flipCard {
+    max-width: 15rem;
+    max-height: 15rem;
+    width: 15rem;
+  }
 }

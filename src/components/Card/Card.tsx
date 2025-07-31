@@ -78,9 +78,7 @@ export default function Card({
           ) : (
             <>
               <h2>{word.english}</h2>
-              <p>
-                <em>{word.example}</em>
-              </p>
+              <em className={styles.example}>{word.example}</em>
             </>
           )}
 

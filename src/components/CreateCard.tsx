@@ -49,7 +49,7 @@ export default function CreateCard() {
           example sentence."
       />
       <h2 className="form-title">Create a New Flashcard</h2>
-      <form className="card-form" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-label" htmlFor="finnish">
           Finnish Word
         </label>
