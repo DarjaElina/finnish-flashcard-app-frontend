@@ -96,6 +96,34 @@
   justify-content: center;
 }
 
+.actionBtns a {
+  color: var(--text-dark);
+}
+
+.actionBtns a:nth-child(1) {
+  background-color: #9879a8;
+}
+
+.actionBtns a:nth-child(1):hover {
+  background-color: #846891;
+}
+
+.actionBtns a:nth-child(2) {
+  background-color: #afc787;
+}
+
+.actionBtns a:nth-child(3) {
+  background-color: pink;
+}
+
+.actionBtns a:nth-child(2):hover {
+  background-color: #95a875;
+}
+
+.actionBtns a:nth-child(3):hover {
+  background-color: rgb(206, 157, 165);
+}
+
 @media (max-width: 1024px) {
   .embla {
     max-width: 80%;
