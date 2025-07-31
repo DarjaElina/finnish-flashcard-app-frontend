@@ -10,6 +10,6 @@
 }
 
 .emblaButton:disabled {
-  opacity: 0.9;
+  opacity: 0.5;
   cursor: not-allowed;
 }
