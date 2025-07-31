@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./NavLinks.module.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../services/auth";
 import { showError } from "../../utils/swal";
@@ -13,11 +13,14 @@ interface NavLinksProp {
 export default function NavLinks({ setMenuOpen }: NavLinksProp) {
   const { data: user } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
+      queryClient.clear();
       navigate("/login");
+      setMenuOpen?.(false);
     },
     onError: () => {
       showError("Error signing out");

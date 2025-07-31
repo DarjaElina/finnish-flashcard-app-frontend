@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { z } from "zod";
 import { signup } from "../services/auth";
@@ -24,6 +24,7 @@ type SignUpFormData = z.infer<typeof SignUpSchema>;
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -38,7 +39,12 @@ export default function SignUpForm() {
     mutationFn: (data: SignUpFormData) => signup(data),
     onSuccess: () => {
       reset();
-      navigate("/");
+      queryClient.refetchQueries({
+        queryKey: [["currentUser"]],
+        type: "active",
+        exact: true,
+      });
+      navigate("/saved");
     },
     onError: (e) => {
       showError(e.message ?? "Error signing up");

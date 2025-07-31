@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { login } from "../services/auth";
 import { showError } from "../utils/swal";
 import Moose from "./Moose/Moose";
 import FormInfo from "./FormInfo/FormInfo";
+import { AxiosError } from "axios";
 
 const LoginSchema = z.object({
   email: z.email("Invalid email address"),
@@ -17,6 +18,7 @@ type LoginFormData = z.infer<typeof LoginSchema>;
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -29,10 +31,18 @@ export default function LoginForm() {
   const loginMutation = useMutation({
     mutationFn: (data: LoginFormData) => login(data),
     onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: [["currentUser"]],
+        type: "active",
+        exact: true,
+      });
       navigate("/saved");
     },
     onError: (e) => {
-      showError(e.message ?? "Error signing in");
+      if (e instanceof AxiosError) {
+        showError(e?.response?.data.message);
+      } else showError(e.message ?? "Error signing in");
+      console.log(e);
     },
   });
 
