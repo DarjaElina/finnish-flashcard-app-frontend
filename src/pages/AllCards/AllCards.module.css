@@ -1,0 +1,10 @@
+.actionBtns {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.actionBtns p {
+  color: var(--text-dark);
+  font-size: 1.2rem;
+}

@@ -6,7 +6,6 @@ import React, {
 } from "react";
 import { type EmblaCarouselType } from "embla-carousel";
 import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
-import styles from "./CarouselButtons.module.css";
 
 type UsePrevNextButtonsType = {
   prevBtnDisabled: boolean;
@@ -58,7 +57,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
   const { children, ...restProps } = props;
 
   return (
-    <button className={styles.emblaButton} type="button" {...restProps}>
+    <button className="pagination-btn" type="button" {...restProps}>
       <CircleArrowLeft />
       {children}
     </button>
@@ -69,7 +68,7 @@ export const NextButton: React.FC<PropType> = (props) => {
   const { children, ...restProps } = props;
 
   return (
-    <button className={styles.emblaButton} type="button" {...restProps}>
+    <button className="pagination-btn" type="button" {...restProps}>
       <CircleArrowRight />
       {children}
     </button>

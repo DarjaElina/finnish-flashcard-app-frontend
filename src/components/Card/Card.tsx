@@ -85,7 +85,7 @@ export default function Card({
               word={word}
               onUpdate={handleUpdate}
               onCancel={closeModal}
-              isLoading={false}
+              isLoading={updateWordMutation.isPending}
             />
           </Modal>
           {!modalIsOpen && (

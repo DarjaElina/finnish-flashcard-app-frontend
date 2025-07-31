@@ -173,6 +173,7 @@ textarea:focus {
   padding: 2rem;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .error-msg {
@@ -180,6 +181,22 @@ textarea:focus {
   margin-top: 2rem;
   font-weight: 600;
   color: #ff7a7a;
+}
+
+.pagination-btn {
+  background: var(--bg-panel);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @keyframes float {

@@ -10,8 +10,7 @@ const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 const PublicRoute = lazy(() => import("./components/PublicRoute"));
 const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
-const DemoCards = lazy(() => import("./pages/DemoCards"));
-const AllCards = lazy(() => import("./pages/AllCards"));
+const AllCards = lazy(() => import("./pages/AllCards/AllCards"));
 const SavedCards = lazy(() => import("./pages/SavedCards"));
 
 function App() {
@@ -37,7 +36,7 @@ function App() {
           children: [
             { path: "/sign-up", element: <SignUpForm /> },
             { path: "/login", element: <LoginForm /> },
-            { path: "/demo", element: <DemoCards /> },
+            { path: "/demo", element: <AllCards isDemo={true} /> },
           ],
         },
         { path: "/*", element: <NotFound /> },

@@ -1,4 +1,4 @@
-import type { Word } from "../types/word.types";
+import type { PaginatedData, Word } from "../types/word.types";
 import api from "./index";
 
 export const createWord = async ({
@@ -25,7 +25,7 @@ export const deleteWord = async (id: string) => {
   return response.data;
 };
 
-export const getExternalWords = async () => {
-  const response = await api.get("/words/external");
+export const getSharedWords = async (page = 1): Promise<PaginatedData> => {
+  const response = await api.get(`words/shared?page=${page}`);
   return response.data;
 };

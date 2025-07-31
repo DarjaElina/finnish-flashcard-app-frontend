@@ -76,7 +76,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
               disabled={logoutMutation.isPending}
               className={styles.navLink}
             >
-              Sign Out
+              {logoutMutation.isPending ? "Signing out..." : " Sign Out"}
             </button>
           </li>
         </>
