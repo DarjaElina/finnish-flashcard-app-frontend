@@ -7,7 +7,7 @@ import Cards from "../../components/Cards/Cards";
 import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 import styles from "./AllCards.module.css";
 
-export default function AllCards({ isDemo }: { isDemo?: boolean }) {
+export default function AllCards() {
   const [page, setPage] = useState(1);
 
   const {
@@ -33,13 +33,9 @@ export default function AllCards({ isDemo }: { isDemo?: boolean }) {
     <div>
       <div className="cards-container">
         <Moose
-          text={
-            isDemo
-              ? "These are demo words! Tap a card to flip it. Want to save or edit words? Log in to unlock those powers!"
-              : "These are words from the outside world! Tap a card to flip it. Save the ones you like!"
-          }
+          text="These are words from the outside world! Tap a card to flip it. Save the ones you like!"
         />
-        <Cards isDemo={isDemo} words={paginatedData.data} />
+        <Cards  words={paginatedData.data} />
         <div className={styles.actionBtns}>
           <button
             className="pagination-btn"

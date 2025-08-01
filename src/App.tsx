@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MooseLoader from "./components/MooseLoader/MooseLoader";
+import DemoCards from "./pages/DemoCards";
 const Home = lazy(() => import("./components/Home/Home"));
 const CreateCard = lazy(() => import("./components/CreateCard"));
 const Root = lazy(() => import("./components/Root"));
@@ -36,7 +37,7 @@ function App() {
           children: [
             { path: "/sign-up", element: <SignUpForm /> },
             { path: "/login", element: <LoginForm /> },
-            { path: "/demo", element: <AllCards isDemo={true} /> },
+            { path: "/demo", element: <DemoCards /> },
           ],
         },
         { path: "/*", element: <NotFound /> },
