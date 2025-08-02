@@ -36,7 +36,7 @@ export default function LoginForm() {
         type: "active",
         exact: true,
       });
-      navigate("/saved");
+      navigate("/");
     },
     onError: (e) => {
       if (e instanceof AxiosError) {

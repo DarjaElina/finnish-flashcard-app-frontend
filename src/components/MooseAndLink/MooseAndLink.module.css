@@ -1,15 +1,24 @@
-.notFound {
+.wrapper {
   display: flex;
   flex-direction: column;
 }
 
-.backHome {
+.link {
   margin: 2rem;
   text-align: center;
   font-size: 2rem;
   color: var(--accent-purple);
 }
 
-.backHome:hover {
+.link:hover {
   color: var(--accent-purple-hover);
 }
+
+
+@media (max-width: 768px) {
+  .link {
+    font-size: 1.5rem;
+}
+}
+
+

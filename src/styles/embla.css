@@ -6,22 +6,22 @@
   --slide-size: 100%;
 }
 
-.emblaViewport {
+.embla-viewport {
   overflow: hidden;
 }
-.emblaContainer {
+.embla-container {
   display: flex;
   touch-action: pan-y pinch-zoom;
   margin-left: calc(var(--slide-spacing) * -1);
 }
-.emblaSlide {
+.embla-slide {
   transform: translate3d(0, 0, 0);
   flex: 0 0 var(--slide-size);
   min-width: 0;
   padding-left: var(--slide-spacing);
 }
 
-.emblaSlideInner {
+.embla-slide-inner {
   border-radius: 1.8rem;
   font-weight: 600;
   display: flex;
@@ -34,21 +34,21 @@
   background-color: var(--bg-panel);
 }
 
-.emblaControls {
+.embla-controls {
   display: grid;
   grid-template-columns: auto 1fr;
   justify-content: space-between;
   gap: 1.2rem;
   margin-top: 1.8rem;
 }
-.emblaButtons {
+.embla-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.6rem;
   align-items: center;
 }
 
-.emblaDots {
+.embla-dots {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -56,7 +56,7 @@
   margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
 }
 
-.emblaDot {
+.embla-dot {
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
   appearance: none;
@@ -75,7 +75,7 @@
   border-radius: 50%;
 }
 
-.emblaDot::after {
+.embla-dot::after {
   box-shadow: inset 0 0 0 0.2rem var(--accent-purple-hover);
   width: 1rem;
   height: 1rem;
@@ -85,43 +85,43 @@
   content: "";
 }
 
-.emblaDotSelected::after {
+.embla-dot-selected::after {
   box-shadow: inset 0 0 0 0.2rem var(--accent-purple);
 }
 
-.actionBtns {
+.action-btns {
   display: flex;
   gap: 1rem;
   align-items: center;
   justify-content: center;
 }
 
-.actionBtns a {
+.action-btns a {
   color: var(--text-dark);
 }
 
-.actionBtns a:nth-child(1) {
-  background-color: #9879a8;
+.action-btns a:nth-child(1) {
+  background-color: var(--light-purple);
 }
 
-.actionBtns a:nth-child(1):hover {
-  background-color: #846891;
+.action-btns a:nth-child(1):hover {
+  background-color: var(--light-purple-hover);
 }
 
-.actionBtns a:nth-child(2) {
-  background-color: #afc787;
+.action-btns a:nth-child(2) {
+  background-color: var(--green);
 }
 
-.actionBtns a:nth-child(3) {
-  background-color: pink;
+.action-btns a:nth-child(3) {
+  background-color: var(--pink);
 }
 
-.actionBtns a:nth-child(2):hover {
-  background-color: #95a875;
+.action-btns a:nth-child(2):hover {
+  background-color: var(--green-hover);
 }
 
-.actionBtns a:nth-child(3):hover {
-  background-color: rgb(206, 157, 165);
+.action-btns a:nth-child(3):hover {
+  background-color: var(--pink-hover);
 }
 
 @media (max-width: 1024px) {
@@ -131,7 +131,7 @@
 }
 
 @media (max-width: 768px) {
-  .actionBtns {
+  .action-btns {
     flex-direction: column;
     gap: 0.5rem;
   }

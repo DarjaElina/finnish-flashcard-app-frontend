@@ -1,11 +1,5 @@
-import Carousel from "../Carousel/Carousel";
+import Carousel from "../WelcomeCarousel/WelcomeCarousel";
 
-export default function Home({
-  isAuthenticated,
-  username,
-}: {
-  isAuthenticated?: boolean;
-  username?: string;
-}) {
-  return <Carousel isAuthenticated={isAuthenticated} username={username} />;
+export default function Home() {
+  return <Carousel  />;
 }

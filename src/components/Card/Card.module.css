@@ -115,7 +115,18 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 560px) {
+  .flipCard {
+    min-width: 13rem;
+    min-height: 13rem;
+  }
+
+  .flipCard {
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
   .flipCard {
     min-width: 12rem;
     min-height: 12rem;
@@ -126,15 +137,7 @@
   }
 }
 
-@media (max-width: 400px) {
-  .flipCard {
-    min-width: 20rem;
-    min-height: 20rem;
-    width: 20rem;
-  }
-}
-
-@media (max-width: 320px) {
+@media (max-width: 410px) {
   .flipCard {
     min-width: 15rem;
     min-height: 15rem;

@@ -1,6 +1,6 @@
 import Cards from "../components/Cards/Cards";
 import Moose from "../components/Moose/Moose";
-import { demoWords } from "../utils/word";
+import { demoWords } from "../data/demoWords";
 
 export default function DemoCards() {
   return (
