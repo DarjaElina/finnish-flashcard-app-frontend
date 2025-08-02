@@ -9,7 +9,7 @@ export default function Root() {
       <main>
         <Outlet />
       </main>
-      <Footer isVisible={true} />
+      <Footer />
     </>
   );
 }
