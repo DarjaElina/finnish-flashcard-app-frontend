@@ -44,7 +44,7 @@ export default function SignUpForm() {
         type: "active",
         exact: true,
       });
-      navigate("/saved");
+      navigate("/");
     },
     onError: (e) => {
       showError(e.message ?? "Error signing up");
