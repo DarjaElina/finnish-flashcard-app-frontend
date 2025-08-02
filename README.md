@@ -8,7 +8,7 @@ This repository contains the frontend. The [backend](https://github.com/DarjaEli
 
 The app is still under development, but the core features are already live 😁
 
-🪩 You can check out the deployed application [here](https://finnish-flashcard-app-frontend.vercel.app/login).
+🪩 You can check out the deployed application [here](https://finnish-flashcard-app-frontend.vercel.app).
 
 This is a React/Typescript and PHP/Laravel application.
 
