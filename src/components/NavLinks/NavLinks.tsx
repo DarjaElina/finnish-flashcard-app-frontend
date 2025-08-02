@@ -77,7 +77,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
             <button
               onClick={handleLogout}
               disabled={logoutMutation.isPending}
-              className={styles.navLink}
+              className={styles.navLinkBtn}
             >
               {logoutMutation.isPending ? "Signing out..." : " Sign Out"}
             </button>
@@ -95,6 +95,15 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
               Demo
             </NavLink>
           </li>
+           {/* <li>
+            <NavLink
+              to="/game"
+              className={styles.navLink}
+              onClick={() => setMenuOpen?.(false)}
+            >
+              Game Mode
+            </NavLink>
+          </li> */}
           <li>
             <NavLink
               to="/sign-up"

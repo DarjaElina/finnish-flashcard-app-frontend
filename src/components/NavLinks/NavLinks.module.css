@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.navLink {
+.navLink, .navLinkBtn {
   all: unset;
   text-decoration: none;
   font-weight: 500;
@@ -17,10 +17,16 @@
   cursor: pointer;
 }
 
-.navLink:hover {
+.navLink:hover, .navLinkBtn:hover {
   color: var(--accent-yellow);
   border-color: var(--accent-yellow);
 }
+
+.navLinkBtn {
+  padding-bottom: 0;
+  margin-bottom: -2px;
+}
+
 
 @media (max-width: 768px) {
   .navLinks {
