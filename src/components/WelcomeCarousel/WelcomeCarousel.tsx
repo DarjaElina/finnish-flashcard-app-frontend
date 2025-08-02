@@ -32,25 +32,35 @@ export default function Carousel() {
     <section className="embla">
       <div className="embla-viewport" ref={emblaRef}>
         <div className="embla-container">
-          {user ? (
+          {user && !isLoading && 
             <div className="embla-slide">
               <div className="embla-slide-inner">
                 <Moose
                   hasBg={true}
-                  text={isLoading ? "Loading..." : `Hello, ${user.name}! Good to see you again! 💛`}
+                  text={`Hello, ${user.name}! Good to see you again! 💛`}
                 />
               </div>
-            </div>
-          ) : (
-            <div className="embla-slide">
+            </div> } 
+          
+            {!user && !isLoading && <div className="embla-slide">
               <div className="embla-slide-inner">
                 <Moose
                   hasBg={true}
                   text="Welcome! This app helps you learn Finnish words in a fun and interactive way"
                 />
               </div>
-            </div>
-          )}
+            </div>}
+
+             
+            {isLoading && <div className="embla-slide">
+              <div className="embla-slide-inner">
+                <Moose
+                  hasBg={true}
+                  text="Loading..."
+                />
+              </div>
+            </div>}
+        
           {slides.map((slide, index) => (
             <div className="embla-slide" key={index}>
               <div className="embla-slide-inner">
