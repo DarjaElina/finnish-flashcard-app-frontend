@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MooseLoader from "./components/MooseLoader/MooseLoader";
 import DemoCards from "./pages/DemoCards";
+import MooseAndLink from "./components/MooseAndLink/MooseAndLink";
 const Home = lazy(() => import("./components/Home/Home"));
 const CreateCard = lazy(() => import("./components/CreateCard"));
 const Root = lazy(() => import("./components/Root"));
@@ -9,10 +10,10 @@ const SignUpForm = lazy(() => import("./components/SignUpForm"));
 const LoginForm = lazy(() => import("./components/LoginForm"));
 const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 const PublicRoute = lazy(() => import("./components/PublicRoute"));
-const NotFound = lazy(() => import("./components/NotFound/NotFound"));
 
 const AllCards = lazy(() => import("./pages/AllCards/AllCards"));
 const SavedCards = lazy(() => import("./pages/SavedCards"));
+const GamePage = lazy(() => import("./pages/GamePage"));
 
 function App() {
   const router = createBrowserRouter([
@@ -38,9 +39,10 @@ function App() {
             { path: "/sign-up", element: <SignUpForm /> },
             { path: "/login", element: <LoginForm /> },
             { path: "/demo", element: <DemoCards /> },
+            // { path: "/game", element: <GamePage/> }
           ],
         },
-        { path: "/*", element: <NotFound /> },
+        { path: "/*", element: <MooseAndLink text="Oops! Looks like the page you tried to find is not in our system! Let's get you back home!" linkText="Home!" url="/"/> },
       ],
     },
   ]);

@@ -14,12 +14,9 @@ export const guestSlides = [
 
 export const authSlides = [
   {
-    text: "Here is your word of the day!",
-  },
-  {
     text: "What would you like to do next?",
     buttons: [
-      { label: "Practice Words", to: "/practice" },
+      { label: "Practice Words", to: "/saved" },
       { label: "Play Game", to: "/game" },
       { label: "Log Out", to: "/logout" },
     ],
