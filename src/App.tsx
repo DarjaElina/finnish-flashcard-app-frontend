@@ -13,7 +13,7 @@ const PublicRoute = lazy(() => import("./components/PublicRoute"));
 
 const AllCards = lazy(() => import("./pages/AllCards/AllCards"));
 const SavedCards = lazy(() => import("./pages/SavedCards"));
-const GamePage = lazy(() => import("./pages/GamePage"));
+// const GamePage = lazy(() => import("./pages/GamePage"));
 
 function App() {
   const router = createBrowserRouter([
