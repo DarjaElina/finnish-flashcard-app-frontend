@@ -1,0 +1,22 @@
+.footer {
+  width: 100%;
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--bg-panel);
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.link {
+  color: var(--text-light);
+}
+
+.footer a:hover {
+  color: var(--accent-yellow);
+}

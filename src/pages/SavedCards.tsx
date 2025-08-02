@@ -17,7 +17,11 @@ export default function AllCards() {
 
   if (!words || words.length === 0) {
     return (
-        <MooseAndLink text="Hmm... no words here just yet! Let's add some and start your Finnish journey" linkText="Create word" url="/create"/>
+      <MooseAndLink
+        text="Hmm... no words here just yet! Let's add some and start your Finnish journey"
+        linkText="Create word"
+        url="/create"
+      />
     );
   }
 

@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import Moose from "../Moose/Moose";
-import styles from './MooseAndLink.module.css';
+import styles from "./MooseAndLink.module.css";
 
-export default function MooseAndLink({text, linkText, url}: {text: string; linkText: string; url: string}) {
+export default function MooseAndLink({
+  text,
+  linkText,
+  url,
+}: {
+  text: string;
+  linkText: string;
+  url: string;
+}) {
   return (
     <div className={styles.wrapper}>
       <Moose text={text} />

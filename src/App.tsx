@@ -42,7 +42,16 @@ function App() {
             // { path: "/game", element: <GamePage/> }
           ],
         },
-        { path: "/*", element: <MooseAndLink text="Oops! Looks like the page you tried to find is not in our system! Let's get you back home!" linkText="Home!" url="/"/> },
+        {
+          path: "/*",
+          element: (
+            <MooseAndLink
+              text="Oops! Looks like the page you tried to find is not in our system! Let's get you back home!"
+              linkText="Home!"
+              url="/"
+            />
+          ),
+        },
       ],
     },
   ]);
