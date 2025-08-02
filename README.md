@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+## Finnish Flashcard App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Finnish Flashcards!
 
-Currently, two official plugins are available:
+This application is a second version of [this school project](https://github.com/DarjaElina/finnish-flashcard-app).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains the frontend. The [backend](https://github.com/DarjaElina/finnish-flashcard-app) (Laravel/PHP) can be found here.
 
-## Expanding the ESLint configuration
+The app is still under development, but the core features are already live 😁
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🪩 You can check out the deployed application [here](https://finnish-flashcard-app-frontend.vercel.app/login).
 
-```js
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+This is a React/Typescript and PHP/Laravel application.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### What's already there
+1) Access demo flashcards
+2) Or log in to create/edit/delete your own flashcards
+3) Paginated list of shared words
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### What's coming
+1) Searching and filtering
+2) Game mode
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Changes from version 1
+1) Switched project language from JavaScript to TypeScript
+2) Added user authentication
+3) Separated frontend and backend (was React inside Laravel) for easier deployment
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Frontend Tech Stack
+- React, Vite, TypeScript
+- CSS Modules, clsx
+- React Hook Form
+- TanStack Query
+- Zod
+- SweetAlert2
+- Lucide React Icons
+- Axios
+- React Modal
+- React Router
+- ESLint and Prettier
 
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### Acknowledgments
+Originally built as part of a web development course.  
+Now extended and maintained for learning and portfolio purposes.
+
+Thank you for coming by and checking out Flashcard app! 💙
