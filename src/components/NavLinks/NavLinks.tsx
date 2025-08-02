@@ -95,7 +95,7 @@ export default function NavLinks({ setMenuOpen }: NavLinksProp) {
               Demo
             </NavLink>
           </li>
-           {/* <li>
+          {/* <li>
             <NavLink
               to="/game"
               className={styles.navLink}

@@ -32,10 +32,8 @@ export default function AllCards() {
   return (
     <div>
       <div className="cards-container">
-        <Moose
-          text="These are words from the outside world! Tap a card to flip it. Save the ones you like!"
-        />
-        <Cards  words={paginatedData.data} />
+        <Moose text="These are words from the outside world! Tap a card to flip it. Save the ones you like!" />
+        <Cards words={paginatedData.data} />
         <div className={styles.actionBtns}>
           <button
             className="pagination-btn"

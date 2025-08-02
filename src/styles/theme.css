@@ -2,7 +2,7 @@
   --accent-purple: #7d628f;
   --accent-purple-hover: #9879a8;
   --accent-yellow: #f4ec12;
-   --accent-yellow-hover: #d7d017;
+  --accent-yellow-hover: #d7d017;
 
   --bg-blur: rgba(30, 30, 40, 0.6);
   --bg-panel: rgba(74, 58, 85, 0.85);
@@ -19,7 +19,7 @@
   --text-muted-lighter: hsl(240, 6%, 85%);
   --text-dark: #2c2232;
   --text-error: #ff8888;
-   --text-error-hover: #f07070;
+  --text-error-hover: #f07070;
 
   --shadow-glow: rgba(0, 0, 0, 0.3);
 

@@ -14,12 +14,12 @@ import { useAuth } from "../../hooks/useAuth";
 export default function Carousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
-  const {data: user, isLoading} = useAuth();
+  const { data: user, isLoading } = useAuth();
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
-    const slides = user && user.name ? authSlides : guestSlides;
+  const slides = user && user.name ? authSlides : guestSlides;
 
   const {
     prevBtnDisabled,
@@ -32,7 +32,7 @@ export default function Carousel() {
     <section className="embla">
       <div className="embla-viewport" ref={emblaRef}>
         <div className="embla-container">
-          {user && !isLoading && 
+          {user && !isLoading && (
             <div className="embla-slide">
               <div className="embla-slide-inner">
                 <Moose
@@ -40,27 +40,28 @@ export default function Carousel() {
                   text={`Hello, ${user.name}! Good to see you again! 💛`}
                 />
               </div>
-            </div> } 
-          
-            {!user && !isLoading && <div className="embla-slide">
+            </div>
+          )}
+
+          {!user && !isLoading && (
+            <div className="embla-slide">
               <div className="embla-slide-inner">
                 <Moose
                   hasBg={true}
                   text="Welcome! This app helps you learn Finnish words in a fun and interactive way"
                 />
               </div>
-            </div>}
+            </div>
+          )}
 
-             
-            {isLoading && <div className="embla-slide">
+          {isLoading && (
+            <div className="embla-slide">
               <div className="embla-slide-inner">
-                <Moose
-                  hasBg={true}
-                  text="Loading..."
-                />
+                <Moose hasBg={true} text="Loading..." />
               </div>
-            </div>}
-        
+            </div>
+          )}
+
           {slides.map((slide, index) => (
             <div className="embla-slide" key={index}>
               <div className="embla-slide-inner">
@@ -97,7 +98,7 @@ export default function Carousel() {
                 onClick={() => onDotButtonClick(index)}
                 className={clsx(
                   "embla-dot",
-                  index === selectedIndex &&  "embla-dot-selected",
+                  index === selectedIndex && "embla-dot-selected",
                 )}
               />
             ))}
