@@ -14,7 +14,7 @@ import { useAuth } from "../../hooks/useAuth";
 export default function Carousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel();
 
-  const {data: user} = useAuth();
+  const {data: user, isLoading} = useAuth();
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -37,7 +37,7 @@ export default function Carousel() {
               <div className="embla-slide-inner">
                 <Moose
                   hasBg={true}
-                  text={`Hello, ${user.name}! Good to see you again! 💛`}
+                  text={isLoading ? "Loading..." : `Hello, ${user.name}! Good to see you again! 💛`}
                 />
               </div>
             </div>
