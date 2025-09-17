@@ -1,5 +1,7 @@
 ## Finnish Flashcard App
 
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=DarjaElina_finnish-flashcard-app-frontend)](https://sonarcloud.io/summary/new_code?id=DarjaElina_finnish-flashcard-app-frontend)
+
 Welcome to the Finnish Flashcards!
 
 This application is a second version of [this school project](https://github.com/DarjaElina/finnish-flashcard-app).
